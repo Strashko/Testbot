@@ -4,12 +4,14 @@ const fs = require('fs')
 const TelegramApi = require('node-telegram-bot-api');
 
 const bot = new TelegramApi(token, {polling: true});
-
+bot.setMyCommands([
+  {command: '/token', description: 'узнать цену'}
+])
 bot.on('message', async msg => {
 
     const chatId = msg.chat.id;
     const text = msg.text;
-    if (text === "/токен") {
+    if (text === "/token") {
     const fileContent = fs.readFileSync("wowtoken.txt", "utf8")
     await bot.sendMessage(chatId, fileContent);
     }
